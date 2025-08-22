@@ -13,8 +13,8 @@ Intelligent documentation assistant that transforms your Confluence pages into a
 ## Infrastructure & Costs
 
 **Recommended Setup:**
-• **Compute**: AWS EC2 t3.micro Spot instance (~$3-4/month)  
-• **Storage**: 11 GB gp3 EBS volume (~$1/month)  
+• **Compute**: AWS EC2 t3.micro Spot instance ($3-4/month)  
+• **Storage**: 11 GB gp3 EBS volume ($1/month)  
 • **Database**: MongoDB Atlas Free Tier (500 MB limit)  
 • **AI**: DeepSeek API (token-based, very cheap ~$0.001/1K tokens)  
 
@@ -44,7 +44,7 @@ sudo apt install python3.12 python3.12-venv git
 2. **Clone & Setup**
 ```bash
 git clone <your-repo-url>
-cd documind-ai
+cd confluence-qa
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt

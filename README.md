@@ -44,7 +44,7 @@ sudo apt install python3.12 python3.12-venv git
 2. **Clone & Setup**
 ```bash
 git clone <your-repo-url>
-cd confluence-qa
+cd documind-ai
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt

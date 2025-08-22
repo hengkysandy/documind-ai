@@ -1,13 +1,13 @@
 # DocuMind AI
 
-Intelligent documentation assistant that transforms your Confluence pages into an AI-powered Q&A system with Slack integration.
+Complete AI chatbot workflow that transforms your Confluence pages into an intelligent Slack assistant for team knowledge management.
 
 ## Features
 
 • **Smart Search**: Vector similarity + keyword matching across Confluence pages  
 • **AI Answers**: DeepSeek LLM provides contextual responses from your docs  
 • **Cost Efficient**: Runs on AWS t3.micro Spot instances (~$3-5/month)  
-• **Slack Integration**: Complete AI chatbot workflow integrated with team communication  
+• **Complete Slack Workflow**: Full AI chatbot integration with team communication  
 • **Simple Setup**: Pure Python, minimal dependencies  
 
 ## Infrastructure & Costs
@@ -31,7 +31,7 @@ Intelligent documentation assistant that transforms your Confluence pages into a
 • **DeepSeek API Token** - Get from [DeepSeek Platform](https://platform.deepseek.com/)
 • **Confluence API Token** - Generate from your Atlassian account  
 • **MongoDB Database** - Free Atlas cluster or self-hosted
-• **Slack Tokens** - App and Bot tokens (for Slack integration only)  
+• **Slack Tokens** - App and Bot tokens for complete chatbot workflow  
 
 ## Quick Start
 
@@ -58,7 +58,7 @@ cp config.example.py config.py
 # - DEEPSEEK_API_KEY (required)
 # - CONFLUENCE_BASE_URL, CONFLUENCE_USERNAME, CONFLUENCE_API_TOKEN (required)
 # - MONGODB_URI (required) 
-# - SLACK_APP_TOKEN, SLACK_BOT_TOKEN (optional, for Slack bot)
+# - SLACK_APP_TOKEN, SLACK_BOT_TOKEN (required for Slack chatbot)
 ```
 
 4. **Ingest Data** (may take 1-5 minutes depends on content length)
@@ -78,6 +78,9 @@ curl -X POST http://localhost:8080/ask \
 
 # Or use CLI directly  
 python ask.py "what is our deployment process"
+
+# Start Slack bot
+python slack_bot.py
 ```
 
 ## How It Works
@@ -96,14 +99,14 @@ python ask.py "what is our deployment process"
 1. Go to [Slack API – Your Apps](https://api.slack.com/apps)
 2. Create new app → From scratch  
 3. **Socket Mode**: Enable → Generate App Token (xapp-...)
-   • Scope: `connections:write`
+   - Scope: `connections:write`
 4. **OAuth & Permissions** → Bot Token Scopes:
-   • `app_mentions:read`
-   • `chat:write`
-   • (optional) `channels:history`
+   - `app_mentions:read`
+   - `chat:write`
+   - `channels:history`
 5. **Event Subscriptions**:
-   • Enable Events
-   • Subscribe to `app_mention` event
+   - Enable Events
+   - Subscribe to `app_mention` event
 6. Reinstall app to workspace
 7. Copy Bot User OAuth Token (xoxb-...)
 
@@ -181,15 +184,14 @@ journalctl -u confluence-qa.service -f
 All configuration is via environment variables in `.env`. See `.env.example` for required variables.
 
 **Required Environment Variables:**
-• `DEEPSEEK_API_KEY` - Your DeepSeek API token
-• `CONFLUENCE_BASE_URL` - Your Confluence instance URL  
-• `CONFLUENCE_USERNAME` - Your Confluence email
-• `CONFLUENCE_API_TOKEN` - Confluence API token
-• `MONGODB_URI` - MongoDB connection string
-• `PAGE_IDS` - Comma-separated Confluence page IDs to ingest
 
-**Optional (for Slack):**
-• `SLACK_APP_TOKEN` - Slack app token (xapp-...)
+• `DEEPSEEK_API_KEY` - Your DeepSeek API token  
+• `CONFLUENCE_BASE_URL` - Your Confluence instance URL  
+• `CONFLUENCE_USERNAME` - Your Confluence email  
+• `CONFLUENCE_API_TOKEN` - Confluence API token  
+• `MONGODB_URI` - MongoDB connection string  
+• `PAGE_IDS` - Comma-separated Confluence page IDs to ingest  
+• `SLACK_APP_TOKEN` - Slack app token (xapp-...)  
 • `SLACK_BOT_TOKEN` - Slack bot token (xoxb-...)
 
 ## Files
@@ -201,7 +203,7 @@ All configuration is via environment variables in `.env`. See `.env.example` for
 • `config.py` — Configuration (copy from config.example.py)  
 
 ## System Architecture
-```bash
+```
 [Confluence Pages] → [ingest.py] → [MongoDB Vector DB]
                                                 ↓
 [Slack User] → [slack_bot.py] → [serve.py] → [ask.py] → [DeepSeek LLM]

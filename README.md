@@ -28,10 +28,10 @@ Complete AI chatbot workflow that transforms your Confluence pages into an intel
 • Python 3.12  
 
 **Required API Keys & Services:**
-• **DeepSeek API Token** - Get from [DeepSeek Platform](https://platform.deepseek.com/)
-• **Confluence API Token** - Generate from your Atlassian account  
-• **MongoDB Database** - Free Atlas cluster or self-hosted
-• **Slack Tokens** - App and Bot tokens for complete chatbot workflow  
+- **DeepSeek API Token** - Get from [DeepSeek Platform](https://platform.deepseek.com/)
+- **Confluence API Token** - Generate from your Atlassian account  
+- **MongoDB Database** - Free Atlas cluster or self-hosted
+- **Slack Tokens** - App and Bot tokens for complete chatbot workflow  
 
 ## Quick Start
 
@@ -78,9 +78,6 @@ curl -X POST http://localhost:8080/ask \
 
 # Or use CLI directly  
 python ask.py "what is our deployment process"
-
-# Start Slack bot
-python slack_bot.py
 ```
 
 ## How It Works

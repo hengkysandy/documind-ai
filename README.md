@@ -130,9 +130,10 @@ After=network.target
 [Service]
 Type=simple
 User=ubuntu
+Group=ubuntu
 WorkingDirectory=/path/to/repo
 EnvironmentFile=/path/to/repo/.env
-ExecStart=/path/to/repo/.venv/bin/python serve.py
+ExecStart=/path/to/repo/.venv/bin/python /path/to/repo/serve.py
 Restart=always
 RestartSec=3
 
@@ -150,9 +151,10 @@ Requires=confluence-qa.service
 [Service]
 Type=simple
 User=ubuntu
+Group=ubuntu
 WorkingDirectory=/path/to/repo
 EnvironmentFile=/path/to/repo/.env
-ExecStart=/path/to/repo/.venv/bin/python slack_bot.py
+ExecStart=/path/to/repo/.venv/bin/python /path/to/repo/slack_bot.py
 Restart=always
 RestartSec=3
 
